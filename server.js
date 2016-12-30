@@ -10,7 +10,9 @@ const MongoClient = mongodb.MongoClient;
 //config ==============
 const PORT = process.env.PORT || 8080;
 app.use(bodyParser.urlencoded({ extended:true }));
-require('./app/routes');
+app.use(bodyParser.json());
+app.use(cors());
+require('./app/routes')(app);
 
 // start app ============
 app.listen(PORT, function(){
