@@ -7,10 +7,11 @@ const request = require('request');
 module.exports = function(app){
   app.post('/locations', function(req,res){ //Receive location info and send list
     console.log("POST to /locations recieved with data: ", req.body);
-    const paramQuery = "locations?postalCode=";
-    const input = req.body.location;
-    const apiKey = "&key=" + BREWERYDB_KEY;
-    const fullQuery = url + paramQuery + input + apiKey;
+    const paramQuery = `search/geo/point?lat=${req.body.location.lat}&lng=${req.body.location.lng}`;
+    const radius = `&radius=${req.body.radius}`
+    const apiKey = `&key=${BREWERYDB_KEY}`;
+    const fullQuery = url + paramQuery + radius + apiKey;
+    console.log("THIS IS REQ.BODY", req.body);
     request({
       url: fullQuery,
       method: 'GET',
